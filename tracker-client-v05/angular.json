@@ -14,7 +14,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "baseHref" : "/",
-            "outputPath": "dist/tracker-client-v04",
+            "outputPath": "dist/tracker-client-v05",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
