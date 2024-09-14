@@ -25,7 +25,7 @@ import {environment} from "../environments/environment";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = "Shenk's Tracker V04";
+  title = "Shenk's Tracker V05";
   username : string = "";
   constructor(public userService:UserService,
               private messageService:MessageService,private router:Router) {

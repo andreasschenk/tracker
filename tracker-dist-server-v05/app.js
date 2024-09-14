@@ -33,6 +33,8 @@ const app = (0, express_1.default)();
 const port = 4200;
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+//app.use(cors({origin:origin}))  ;
+//app.use(cors());
 function errorHandler(err, req, res, next) {
     if (res.headersSent) {
         return next(err);
@@ -41,10 +43,10 @@ function errorHandler(err, req, res, next) {
     res.status(500).send('Something broke!  ' + err);
 }
 app.use(errorHandler);
-app.use(express_1.default.static('../tracker-client-v04/dist/tracker-client-v04/browser'));
+app.use(express_1.default.static('../tracker-client-v05/dist/tracker-client-v05/browser'));
 const server = https_1.default.createServer({
-    key: fs.readFileSync('./mkcertLap/localhost+3-key.pem'),
-    cert: fs.readFileSync('./mkcertLap/localhost+3.pem'),
+    key: fs.readFileSync('./mkcert/localhost+3-key.pem'),
+    cert: fs.readFileSync('./mkcert/localhost+3.pem'),
 }, app);
 server.listen(port, "127.0.0.1", () => {
     console.log(`Example app listening on port ${port}`);

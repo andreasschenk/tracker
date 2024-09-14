@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --configuration development --ssl true --ssl-key \"./mkcert/localhost+3-key.pem\" --ssl-cert \"./mkcert/localhost+3.pem\" --host 127.0.0.1 --port 4200",
+    "start": "ng serve --configuration mobiledev --ssl true --ssl-key \"./mkcert/localhost+3-key.pem\" --ssl-cert \"./mkcert/localhost+3.pem\" --host 127.0.0.1 --port 4200",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch --configuration mobiledev",
     "test": "ng test"
   },
   "private": true,
