@@ -9,6 +9,8 @@
               [disabled]="!userService.isLoggedIn()">tracker</button>
       <button mat-raised-button color="primary"  routerLink="/list"
               [disabled]="!userService.isLoggedIn()">list</button>
+      <button mat-raised-button color="primary"  routerLink="/profile"
+              [disabled]="!userService.isLoggedIn()">profile</button>
       <button mat-raised-button color="primary" (click)="userService.logout()" >logout</button>
     </nav>
   </mat-toolbar-row>

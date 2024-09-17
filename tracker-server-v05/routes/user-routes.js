@@ -115,3 +115,19 @@ exports.userRouter.get('/locations/:id', (req, res, next) => {
         }
     });
 });
+exports.userRouter.put('/update/', (req, res, next) => {
+    let sql = "UPDATE user SET firstname = " + db_1.pool.escape(req.body.firstName)
+        + ", lastname = " + db_1.pool.escape(req.body.lastName)
+        + ", sex = " + db_1.pool.escape(req.body.sex)
+        + ", address = " + db_1.pool.escape(req.body.address)
+        + ", postalcode = " + db_1.pool.escape(req.body.postalCode)
+        + ", city = " + db_1.pool.escape(req.body.city)
+        + ", country = " + db_1.pool.escape(req.body.country)
+        + " WHERE id = UUID_TO_BIN(" + db_1.pool.escape(req.body.id) + ",1);";
+    console.log(sql);
+    db_1.pool.query(sql, (err) => {
+        if (err)
+            next(err);
+        res.status(200).send(null);
+    });
+});

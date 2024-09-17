@@ -46,14 +46,14 @@ export class UserService {
       .pipe(catchError(this.configService.handleError<string>('register',"-1")));
     return obs;
   }
-  /*
+
   update() : void {
-    //console.log("service update user ::: " + JSON.stringify(this.user));
+    console.log("service update user ::: " + JSON.stringify(this.user));
     this.http.put<User>(this.configService.serverUrl+"/users/update/",this.user)
       .pipe(catchError(this.configService.handleError<void>("update")))
       .subscribe(() => {});
   }
-  */
+
   logout():void{
     this.user = new User();
     sessionStorage.clear();

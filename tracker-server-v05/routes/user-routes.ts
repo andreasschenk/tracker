@@ -88,3 +88,18 @@ userRouter.get('/locations/:id',
             }
         })
     })
+userRouter.put('/update/', (req,res,next) => {
+    let sql = "UPDATE user SET firstname = " + pool.escape(req.body.firstName)
+        + ", lastname = " + pool.escape(req.body.lastName)
+        + ", sex = " + pool.escape(req.body.sex)
+        + ", address = " + pool.escape(req.body.address)
+        + ", postalcode = " + pool.escape(req.body.postalCode)
+        + ", city = " + pool.escape(req.body.city)
+        + ", country = " + pool.escape(req.body.country)
+        + " WHERE id = UUID_TO_BIN(" + pool.escape(req.body.id)+ ",1);";
+    console.log(sql);
+    pool.query(sql,  (err) => {
+        if(err) next(err);
+        res.status(200).send(null);
+    })
+})
