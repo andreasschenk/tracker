@@ -20,7 +20,6 @@
     "@angular/platform-browser": "^18.2.3",
     "@angular/platform-browser-dynamic": "^18.2.3",
     "@angular/router": "^18.2.3",
-    "@angular/service-worker": "^18.2.3",
     "@ng-web-apis/common": "^4.3.0",
     "@ng-web-apis/geolocation": "^4.3.0",
     "@ng-web-apis/storage": "^4.3.0",

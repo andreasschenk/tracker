@@ -1,0 +1,15 @@
+<ul>
+  <li>Latitude: {{ll?.lat}}</li>
+  <li>Longitude: {{ll?.lng}}</li>
+</ul>
+<button mat-flat-button color="primary" (click)="saveLoc()">Save Location To DB</button>
+<div *ngIf="loc">
+  <ul>
+    <li>{{Object.entries(loc)}}</li>
+  </ul>
+</div>
+<div class="map-container">
+  <div class="map-frame">
+    <div id="tmap"></div>
+  </div>
+</div>

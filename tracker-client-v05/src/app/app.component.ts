@@ -11,7 +11,6 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {User} from "./_model/user";
 import {MessageService} from "./_services/message.service";
-import {HttpClientModule} from "@angular/common/http";
 import {GreeterComponent} from "./greeter/greeter.component";
 import {environment} from "../environments/environment";
 
@@ -25,7 +24,7 @@ import {environment} from "../environments/environment";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = "Shenk's Tracker V05 with profile";
+  title = "Shenk's Tracker V05";
   username : string = "";
   constructor(public userService:UserService,
               private messageService:MessageService,private router:Router) {

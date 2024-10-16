@@ -2,7 +2,7 @@
   "dbConfig" : {
     "host" : "localhost",
     "user" : "tracker",
-    "pwd"  : "Spengergasse",
+    "pwd"  : "Spengergasse 20",
     "database" : "trackerV2",
     "connectionLimit" : 13
   },

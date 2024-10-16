@@ -1,0 +1,6 @@
+<div  *ngIf="(locs | async) as ls">
+<h1>List of Locations</h1>
+  <ul *ngFor="let l of ls">
+    <li>{{l.latitude}} {{l.longitude}} {{l.time | date:'long'}}</li>
+  </ul>
+</div>
