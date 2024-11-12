@@ -1,10 +1,10 @@
 import * as express from 'express';
 import { v1 as uuidv1 } from 'uuid';
 
-import {pool} from "../config/db";
+import {connection} from "../config/db";
 import {User} from "../model/user";
 import {Loc} from "../model/location";
-import {QueryResult, RowDataPacket} from "mysql2";
+import { ResultSetHeader, RowDataPacket} from "mysql2";
 
 export const userRouter = express.Router();
 
@@ -13,10 +13,10 @@ const salt:string = "Spengergasse";
 userRouter.post('/login/', (req, res, next) => {
     let sql = "Select (BIN_TO_UUID(id,1)) as id, username, email, firstname," +
         " lastname, sex, address, postalCode, city, country FROM `user` where user.username="
-        + pool.escape(req.body.username) + " && user.password=SHA2("
-        + pool.escape(req.body.password + salt) + ",512)";
+        + connection.escape(req.body.username) + " && user.password=SHA2("
+        + connection.escape(req.body.password + salt) + ",512)";
     console.log(sql);
-    pool.query<RowDataPacket[]>(sql, (err, rows) => {
+    connection.query<RowDataPacket[]>(sql, (err, rows) => {
         if (err) next(err);
         let data: User | null;
         if (rows.length > 0) {
@@ -30,11 +30,11 @@ userRouter.post('/login/', (req, res, next) => {
 })
 userRouter.post('/register/', (req, res, next) => {
     let uuid:string = uuidv1();
-    let sql:string = "INSERT INTO  user  (id, username, password, email) VALUES (UUID_TO_BIN('" + uuid + "',1), " + pool.escape(req.body.username) +
-        ", SHA2(" + pool.escape(req.body.password + salt) + ",512), " + pool.escape(req.body.email) + ");"
+    let sql:string = "INSERT INTO  user  (id, username, password, email) VALUES (UUID_TO_BIN('" + uuid + "',1), " + connection.escape(req.body.username) +
+        ", SHA2(" + connection.escape(req.body.password + salt) + ",512), " + connection.escape(req.body.email) + ");"
     try {
         console.log(sql);
-        pool.query<QueryResult>(sql, (err, rows) => {
+        connection.query<ResultSetHeader>(sql, (err, rows) => {
             if (err) next(err);
             else {
                 if (rows.affectedRows > 0)  // ???
@@ -52,11 +52,11 @@ userRouter.post('/location/', (req,
     try {
         let uuid = uuidv1();
         let sql = "INSERT INTO  location  (id, userid, latitude, longitude, time)" +
-            " VALUES (UUID_TO_BIN('" + uuid + "',1), UUID_TO_BIN(" +  pool.escape(req.body.userid)
-            + ",1)," + pool.escape(req.body.latitude)
-            + "," + pool.escape(req.body.longitude) + "," + pool.escape(new Date(req.body.time)) + ");"
+            " VALUES (UUID_TO_BIN('" + uuid + "',1), UUID_TO_BIN(" +  connection.escape(req.body.userid)
+            + ",1)," + connection.escape(req.body.latitude)
+            + "," + connection.escape(req.body.longitude) + "," + connection.escape(new Date(req.body.time)) + ");"
         //console.log(sql);
-        pool.query<QueryResult>(sql, (err, rs) => {
+        connection.query<ResultSetHeader>(sql, (err, rs) => {
             if (err) next(err);
             else if (rs.affectedRows > 0)  // ???
             {
@@ -76,9 +76,9 @@ userRouter.get('/locations/:id',
         let data: Loc[] = [];
         let sql: string = "SELECT user.id as uid, location.id as lid, "
             + "location.latitude as lat, location.longitude as lng, location.time as time FROM location,user WHERE user.id=UUID_TO_BIN("
-            + pool.escape(req.params.id) + ",1) AND location.userid=user.id;"
+            + connection.escape(req.params.id) + ",1) AND location.userid=user.id;"
         //console.log(sql);
-        pool.query<RowDataPacket[]>(sql, (err, rows) => {
+        connection.query<RowDataPacket[]>(sql, (err, rows) => {
             if (err) {
                 next(err);
             } else {
@@ -90,16 +90,16 @@ userRouter.get('/locations/:id',
         })
     })
 userRouter.put('/update/', (req,res,next) => {
-    let sql = "UPDATE user SET firstname = " + pool.escape(req.body.firstName)
-        + ", lastname = " + pool.escape(req.body.lastName)
-        + ", sex = " + pool.escape(req.body.sex)
-        + ", address = " + pool.escape(req.body.address)
-        + ", postalcode = " + pool.escape(req.body.postalCode)
-        + ", city = " + pool.escape(req.body.city)
-        + ", country = " + pool.escape(req.body.country)
-        + " WHERE id = UUID_TO_BIN(" + pool.escape(req.body.id)+ ",1);";
+    let sql = "UPDATE user SET firstname = " + connection.escape(req.body.firstName)
+        + ", lastname = " + connection.escape(req.body.lastName)
+        + ", sex = " + connection.escape(req.body.sex)
+        + ", address = " + connection.escape(req.body.address)
+        + ", postalcode = " + connection.escape(req.body.postalCode)
+        + ", city = " + connection.escape(req.body.city)
+        + ", country = " + connection.escape(req.body.country)
+        + " WHERE id = UUID_TO_BIN(" + connection.escape(req.body.id)+ ",1);";
     console.log(sql);
-    pool.query<QueryResult>(sql,  (err) => {
+    connection.query<ResultSetHeader>(sql,  (err) => {
         if(err) next(err);
         res.status(200).send(null);
     })

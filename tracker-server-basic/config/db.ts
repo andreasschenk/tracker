@@ -6,7 +6,7 @@ const host:string = config.get<string>('dbConfig.host');
 const user:string = config.get<string>('dbConfig.user');
 const pwd:string = config.get<string>('dbConfig.pwd');
 const database:string = config.get<string>('dbConfig.database');
-export const pool = mysql.createPool({
+export const connection = mysql.createConnection({
     connectionLimit: connectionLimit,
     host: host,
     user: user,

@@ -34,10 +34,10 @@ const salt = "Spengergasse";
 exports.userRouter.post('/login/', (req, res, next) => {
     let sql = "Select (BIN_TO_UUID(id,1)) as id, username, email, firstname," +
         " lastname, sex, address, postalCode, city, country FROM `user` where user.username="
-        + db_1.pool.escape(req.body.username) + " && user.password=SHA2("
-        + db_1.pool.escape(req.body.password + salt) + ",512)";
+        + db_1.connection.escape(req.body.username) + " && user.password=SHA2("
+        + db_1.connection.escape(req.body.password + salt) + ",512)";
     console.log(sql);
-    db_1.pool.query(sql, (err, rows) => {
+    db_1.connection.query(sql, (err, rows) => {
         if (err)
             next(err);
         let data;
@@ -51,11 +51,11 @@ exports.userRouter.post('/login/', (req, res, next) => {
 });
 exports.userRouter.post('/register/', (req, res, next) => {
     let uuid = (0, uuid_1.v1)();
-    let sql = "INSERT INTO  user  (id, username, password, email) VALUES (UUID_TO_BIN('" + uuid + "',1), " + db_1.pool.escape(req.body.username) +
-        ", SHA2(" + db_1.pool.escape(req.body.password + salt) + ",512), " + db_1.pool.escape(req.body.email) + ");";
+    let sql = "INSERT INTO  user  (id, username, password, email) VALUES (UUID_TO_BIN('" + uuid + "',1), " + db_1.connection.escape(req.body.username) +
+        ", SHA2(" + db_1.connection.escape(req.body.password + salt) + ",512), " + db_1.connection.escape(req.body.email) + ");";
     try {
         console.log(sql);
-        db_1.pool.query(sql, (err, rows) => {
+        db_1.connection.query(sql, (err, rows) => {
             if (err)
                 next(err);
             else {
@@ -76,11 +76,11 @@ exports.userRouter.post('/location/', (req, res, next) => {
     try {
         let uuid = (0, uuid_1.v1)();
         let sql = "INSERT INTO  location  (id, userid, latitude, longitude, time)" +
-            " VALUES (UUID_TO_BIN('" + uuid + "',1), UUID_TO_BIN(" + db_1.pool.escape(req.body.userid)
-            + ",1)," + db_1.pool.escape(req.body.latitude)
-            + "," + db_1.pool.escape(req.body.longitude) + "," + db_1.pool.escape(new Date(req.body.time)) + ");";
+            " VALUES (UUID_TO_BIN('" + uuid + "',1), UUID_TO_BIN(" + db_1.connection.escape(req.body.userid)
+            + ",1)," + db_1.connection.escape(req.body.latitude)
+            + "," + db_1.connection.escape(req.body.longitude) + "," + db_1.connection.escape(new Date(req.body.time)) + ");";
         //console.log(sql);
-        db_1.pool.query(sql, (err, rs) => {
+        db_1.connection.query(sql, (err, rs) => {
             if (err)
                 next(err);
             else if (rs.affectedRows > 0) // ???
@@ -101,9 +101,9 @@ exports.userRouter.get('/locations/:id', (req, res, next) => {
     let data = [];
     let sql = "SELECT user.id as uid, location.id as lid, "
         + "location.latitude as lat, location.longitude as lng, location.time as time FROM location,user WHERE user.id=UUID_TO_BIN("
-        + db_1.pool.escape(req.params.id) + ",1) AND location.userid=user.id;";
+        + db_1.connection.escape(req.params.id) + ",1) AND location.userid=user.id;";
     //console.log(sql);
-    db_1.pool.query(sql, (err, rows) => {
+    db_1.connection.query(sql, (err, rows) => {
         if (err) {
             next(err);
         }
@@ -116,16 +116,16 @@ exports.userRouter.get('/locations/:id', (req, res, next) => {
     });
 });
 exports.userRouter.put('/update/', (req, res, next) => {
-    let sql = "UPDATE user SET firstname = " + db_1.pool.escape(req.body.firstName)
-        + ", lastname = " + db_1.pool.escape(req.body.lastName)
-        + ", sex = " + db_1.pool.escape(req.body.sex)
-        + ", address = " + db_1.pool.escape(req.body.address)
-        + ", postalcode = " + db_1.pool.escape(req.body.postalCode)
-        + ", city = " + db_1.pool.escape(req.body.city)
-        + ", country = " + db_1.pool.escape(req.body.country)
-        + " WHERE id = UUID_TO_BIN(" + db_1.pool.escape(req.body.id) + ",1);";
+    let sql = "UPDATE user SET firstname = " + db_1.connection.escape(req.body.firstName)
+        + ", lastname = " + db_1.connection.escape(req.body.lastName)
+        + ", sex = " + db_1.connection.escape(req.body.sex)
+        + ", address = " + db_1.connection.escape(req.body.address)
+        + ", postalcode = " + db_1.connection.escape(req.body.postalCode)
+        + ", city = " + db_1.connection.escape(req.body.city)
+        + ", country = " + db_1.connection.escape(req.body.country)
+        + " WHERE id = UUID_TO_BIN(" + db_1.connection.escape(req.body.id) + ",1);";
     console.log(sql);
-    db_1.pool.query(sql, (err) => {
+    db_1.connection.query(sql, (err) => {
         if (err)
             next(err);
         res.status(200).send(null);

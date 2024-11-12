@@ -1,28 +1,4 @@
 "use strict";
-/*
-changes: only uuid in db
-timestamp is sent from client
-use ts uuid https://github.com/uuidjs/uuid
-bin uuid
-https://dev.mysql.com/blog-archive/mysql-8-0-uuid-support/
-encryption
-https://www.sjoerdlangkemper.nl/2020/02/12/the-case-for-client-side-hashing-logging-passwords-by-mistake/#:~:text=This%20means%20that%20if%20the,hash%20effectively%20becomes%20the%20password.
-https://security.stackexchange.com/questions/8596/https-security-should-password-be-hashed-server-side-or-client-side
-https://dev.mysql.com/doc/mysql-security-excerpt/8.3/en/password-management.html
-todo:
-controller: https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes
-
-dto or express validator or both???
-https://blog.nevertoolate.studio/enhancing-node-js-backend-development-with-data-transfer-objects-dtos-889718871a61
-https://abderahmanetoumi.medium.com/data-transfer-objects-dtos-a-comprehensive-guide-2d00e8fa2ec3
-https://dev.to/tareksalem/dtos-in-javascript-118p
-https://amirmustafaofficial.medium.com/data-transfer-objects-dto-pattern-in-programming-53f2a51a5cc9
-https://medium.com/@hcach90/using-express-validator-for-data-validation-in-nodejs-6946afd9d67e
-https://express-validator.github.io/docs/6.10.0/
-https://medium.com/@chiragmehta900/node-js-typescript-validation-with-an-express-validator-72c164459d0f
-
-db data: faker ...
- */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
